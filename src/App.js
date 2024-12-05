@@ -6,9 +6,9 @@ const App = () => {
 
     // Bright color scheme for MIND
     const mindColors = {
-        M: '#00ffff', // Bright Cyan
+        M: '#ffff00', // Bright Cyan 
         I: '#ff00ff', // Bright Magenta
-        N: '#ffff00', // Bright Yellow
+        N: '#00ffff', // Bright Yellow
         D: '#00ff00'  // Bright Green
     };
 
@@ -84,9 +84,11 @@ const App = () => {
                         <div className="col-span-3 text-white grid grid-cols-3 gap-8">
                             <div>
                                 <h3 className="text-lg font-semibold mb-4">Contact</h3>
-                                <p>California State University Bakersfield</p>
-                                <p>Department of Psychology</p>
                                 <p>Email: mmishra@csub.edu</p>
+                                <p>Department of Psychology</p>
+                                <p>California State University Bakersfield</p>
+                                
+                                
                             </div>
                             <div>
                                 <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
@@ -99,8 +101,10 @@ const App = () => {
                             <div>
                                 <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
                                 <div className="flex space-x-4">
-                                    <a href="https://twitter.com/MarutiMishra15" className="hover:text-gray-300">Twitter</a>
-                                    <a href="https://scholar.google.com/citations?hl=en&user=Jfj19GQAAAAJ&view_op=list_works" className="hover:text-gray-300">Google Scholar</a>
+                                    <li><a href="https://twitter.com/MarutiMishra15" className="hover:text-gray-300">Twitter</a></li>
+                                    <li><a href="https://scholar.google.com/citations?hl=en&user=Jfj19GQAAAAJ&view_op=list_works" className="hover:text-gray-300">Google Scholar</a></li>
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
