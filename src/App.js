@@ -28,7 +28,7 @@ const App = () => {
                                 </span>
                                 <span className="text-gray-800"> SIGHT</span>
                             </h1>
-                            <span className="ml-2 text-sm text-gray-500">Cognitive Neuroscience Lab</span>
+                            <span className="ml-2 text-sm font-semibold text-black-500">Cognitive Neuroscience Lab</span>
                         </div>
                         <div className="flex space-x-8">
                             <NavButton icon={<Home size={20} />} text="Home" active={activeTab === 'home'} onClick={() => setActiveTab('home')} />
