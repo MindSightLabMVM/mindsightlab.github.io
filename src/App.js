@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Home, Users, Newspaper, BookOpen, UserPlus, Sparkles } from 'lucide-react';
+import { Home, Users, Newspaper, BookOpen, UserPlus, Sparkles, Menu } from 'lucide-react';
 
 const App = () => {
     const [activeTab, setActiveTab] = useState('home');
+    const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const mindColors = {
         M: '#ffff00',
@@ -11,62 +12,90 @@ const App = () => {
         D: '#00ff00'
     };
 
+    const handleNavButtonClick = (tab) => {
+        setActiveTab(tab);
+        setMobileMenuOpen(false); // Close mobile menu on selection
+    };
+
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
             {/* Fixed Navigation Bar */}
-            <nav className="fixed top-0 left-0 right-0 bg-white shadow z-50">
+            <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 shadow z-50">
                 <div className="w-full">
                     <div className="flex items-center justify-between">
                         {/* Left section with negative margin */}
                         <div className="flex items-center -ml-4">
-                            <h1 className="text-4xl font-bold whitespace-nowrap pl-8">
+                            <h1 className="text-4xl font-bold whitespace-nowrap pl-8 text-gray-800 dark:text-gray-100">
                                 <span className="tracking-wide">
                                     <span style={{ color: mindColors.M }}>M</span>
                                     <span style={{ color: mindColors.I }}>I</span>
                                     <span style={{ color: mindColors.N }}>N</span>
                                     <span style={{ color: mindColors.D }}>D</span>
                                 </span>
-                                <span className="text-gray-800"> SIGHT</span>
-                                <span className="ml-2 text-xl font-semibold text-black-500 whitespace-nowrap">
+                                <span> SIGHT</span>
+                                <span className="ml-2 text-xl font-semibold text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                     Cognitive Neuroscience Lab
                                 </span>
                             </h1>
                         </div>
 
                         {/* Right section with navigation buttons */}
-                        <div className="flex items-center space-x-6 pr-8 h-16">
-                            <NavButton icon={<Home size={20} />} text="Home" active={activeTab === 'home'} onClick={() => setActiveTab('home')} />
-                            <NavButton icon={<Users size={20} />} text="People" active={activeTab === 'people'} onClick={() => setActiveTab('people')} />
-                            <NavButton icon={<Newspaper size={20} />} text="News" active={activeTab === 'news'} onClick={() => setActiveTab('news')} />
-                            <NavButton icon={<Newspaper size={20} />} text="Teaching" active={activeTab === 'teaching'} onClick={() => setActiveTab('teaching')} />
-                            <NavButton icon={<BookOpen size={20} />} text="Papers" active={activeTab === 'papers'} onClick={() => setActiveTab('papers')} />
-                            <NavButton icon={<UserPlus size={20} />} text="Join Us" active={activeTab === 'join'} onClick={() => setActiveTab('join')} />
-                            <NavButton icon={<Sparkles size={20} />} text="Fun" active={activeTab === 'fun'} onClick={() => setActiveTab('fun')} />
+                        <div className="hidden md:flex items-center space-x-6 pr-8 h-16">
+                            <NavButton icon={<Home size={20} />} text="Home" active={activeTab === 'home'} onClick={() => handleNavButtonClick('home')} />
+                            <NavButton icon={<Users size={20} />} text="People" active={activeTab === 'people'} onClick={() => handleNavButtonClick('people')} />
+                            <NavButton icon={<Newspaper size={20} />} text="News" active={activeTab === 'news'} onClick={() => handleNavButtonClick('news')} />
+                            <NavButton icon={<Newspaper size={20} />} text="Teaching" active={activeTab === 'teaching'} onClick={() => handleNavButtonClick('teaching')} />
+                            <NavButton icon={<BookOpen size={20} />} text="Papers" active={activeTab === 'papers'} onClick={() => handleNavButtonClick('papers')} />
+                            <NavButton icon={<UserPlus size={20} />} text="Join Us" active={activeTab === 'join'} onClick={() => handleNavButtonClick('join')} />
+                            <NavButton icon={<Sparkles size={20} />} text="Fun" active={activeTab === 'fun'} onClick={() => handleNavButtonClick('fun')} />
+                        </div>
+
+                        {/* Mobile Menu Button */}
+                        <div className="flex items-center pr-8 md:hidden">
+                            <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-800 dark:text-gray-100">
+                                <Menu size={28} />
+                            </button>
                         </div>
                     </div>
                 </div>
             </nav>
 
-
-            {/* Content wrapper with padding for fixed navbar */}
-            <div className="pt-16">
-                {/* Hero Section */}
-                <div
-                    className="bg-cover bg-center bg-fixed"
-                    style={{
-                        backgroundImage: `url('/images/websiteBg.jpg')`,
-                        minHeight: '500px'
-                    }}
-                >
-                    <div className="max-w-7xl mx-auto px-4 py-24 text-center bg-black bg-opacity-50">
-                        <h2 className="text-5xl font-bold text-white mb-6 tracking-wider">
-                            Welcome to Mind Sight Neuroscience Lab
-                        </h2>
-                        <p className="text-xl text-white max-w-3xl mx-auto">
-                            Exploring the neural mechanisms of visual perception and cognition
-                        </p>
+            {/* Mobile Navigation Menu */}
+            {isMobileMenuOpen && (
+                <div className="fixed top-16 left-0 right-0 bg-white dark:bg-gray-800 shadow-md z-40 md:hidden">
+                    <div className="flex flex-col items-center space-y-4 py-4">
+                        <NavButton icon={<Home size={20} />} text="Home" active={activeTab === 'home'} onClick={() => handleNavButtonClick('home')} />
+                        <NavButton icon={<Users size={20} />} text="People" active={activeTab === 'people'} onClick={() => handleNavButtonClick('people')} />
+                        <NavButton icon={<Newspaper size={20} />} text="News" active={activeTab === 'news'} onClick={() => handleNavButtonClick('news')} />
+                        <NavButton icon={<Newspaper size={20} />} text="Teaching" active={activeTab === 'teaching'} onClick={() => handleNavButtonClick('teaching')} />
+                        <NavButton icon={<BookOpen size={20} />} text="Papers" active={activeTab === 'papers'} onClick={() => handleNavButtonClick('papers')} />
+                        <NavButton icon={<UserPlus size={20} />} text="Join Us" active={activeTab === 'join'} onClick={() => handleNavButtonClick('join')} />
+                        <NavButton icon={<Sparkles size={20} />} text="Fun" active={activeTab === 'fun'} onClick={() => handleNavButtonClick('fun')} />
                     </div>
                 </div>
+            )}
+
+            {/* Content wrapper with padding for fixed navbar */}
+            <div className="pt-20">
+                {/* Hero Section - Only visible on Home Tab */}
+                {activeTab === 'home' && (
+                    <div
+                        className="bg-cover bg-center bg-fixed"
+                        style={{
+                            backgroundImage: `url('/images/websiteBg.jpg')`,
+                            minHeight: '500px'
+                        }}
+                    >
+                        <div className="max-w-7xl mx-auto px-4 py-24 text-center bg-black bg-opacity-50">
+                            <h2 className="text-5xl font-bold text-white mb-6 tracking-wider">
+                                Welcome to Mind Sight Neuroscience Lab
+                            </h2>
+                            <p className="text-xl text-white max-w-3xl mx-auto">
+                                Exploring the neural mechanisms of visual perception and cognition
+                            </p>
+                        </div>
+                    </div>
+                )}
 
                 {/* Main Content Sections */}
                 <main className="max-w-7xl mx-auto px-4 py-8">
@@ -126,8 +155,8 @@ const NavButton = ({ icon, text, active, onClick }) => (
     <button
         onClick={onClick}
         className={`flex items-center px-3 py-2 rounded-md text-sm font-medium w-full md:w-auto justify-center md:justify-start ${active
-                ? 'text-gray-900 bg-gray-100'
-                : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
+            ? 'text-gray-900 bg-gray-100 dark:text-gray-100 dark:bg-gray-700'
+            : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800'
             }`}
     >
         {icon}
@@ -138,8 +167,8 @@ const NavButton = ({ icon, text, active, onClick }) => (
 // Update HomeSection for responsive design
 const HomeSection = () => (
     <div className="space-y-6 md:space-y-8">
-        <div className="bg-white rounded-lg shadow-sm p-4 md:p-8">
-            <p className="text-base md:text-lg text-gray-700 leading-relaxed">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 md:p-8">
+            <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 Our lab focuses on understanding the neural mechanisms of visual attention, awareness,
                 face & emotion perception, and disorders in visual perception. Using cutting-edge
                 techniques including EEG/ERP, psychophysics, and diffusion tensor imaging, we explore
@@ -163,13 +192,17 @@ const HomeSection = () => (
     </div>
 );
 
+const FeatureCard = ({ title, description }) => (
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 md:p-6">
+        <h3 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-gray-900 dark:text-gray-100">{title}</h3>
+        <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">{description}</p>
+    </div>
+);
 
-
+// People Section
 const PeopleSection = () => (
     <div className="space-y-8 md:space-y-12">
         <h2 className="text-2xl md:text-3xl font-bold">Lab Members</h2>
-
-        {/* Principal Investigator */}
         <div>
             <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Principal Investigator</h3>
             <div className="grid grid-cols-1 gap-6">
@@ -181,8 +214,6 @@ const PeopleSection = () => (
                 />
             </div>
         </div>
-
-        {/* Undergraduate Research Assistants */}
         <div>
             <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Undergraduate Research Assistants</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
@@ -198,25 +229,34 @@ const PeopleSection = () => (
                 />
             </div>
         </div>
-
-        {/* Undergraduate Teaching Assistants */}
-        <div>
-            <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Undergraduate Teaching Assistants</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                <PersonCard
-                    name="Teaching Assistant 1"
-                    title="Undergraduate Teaching Assistant"
-                    description="Psychology Major, Class of 2024"
-                />
-                <PersonCard
-                    name="Teaching Assistant 2"
-                    title="Undergraduate Teaching Assistant"
-                    description="Psychology Major, Class of 2025"
-                />
-            </div>
-        </div>
     </div>
 );
+
+const PersonCard = ({ name, title, description, imageUrl }) => (
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 md:p-6">
+        <div className="w-48 h-48 md:w-64 md:h-64 mx-auto mb-4 bg-gray-200 rounded-full overflow-hidden">
+            {imageUrl ? (
+                <img
+                    src={imageUrl}
+                    alt={name}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                />
+            ) : (
+                <div className="w-full h-full bg-gray-200" />
+            )}
+        </div>
+        <h3 className="text-lg md:text-xl font-semibold text-center mb-2 text-gray-900 dark:text-gray-100">{name}</h3>
+        <h4 className="text-sm md:text-base text-gray-600 dark:text-gray-400 text-center mb-2">{title}</h4>
+        <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 text-center">{description}</p>
+    </div>
+);
+
+
+
+
+
+
 
 const NewsSection = () => (
     <div className="space-y-6 md:space-y-8">
@@ -347,26 +387,7 @@ const FunSection = () => (
         </div>
     </div>
 );
-// Updated PersonCard for better responsive design
-const PersonCard = ({ name, title, description, imageUrl }) => (
-    <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
-        <div className="w-48 h-48 md:w-64 md:h-64 mx-auto mb-4 bg-gray-200 rounded-full overflow-hidden">
-            {imageUrl ? (
-                <img
-                    src={imageUrl}
-                    alt={name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                />
-            ) : (
-                <div className="w-full h-full bg-gray-200" />
-            )}
-        </div>
-        <h3 className="text-lg md:text-xl font-semibold text-center mb-2">{name}</h3>
-        <h4 className="text-sm md:text-base text-gray-600 text-center mb-2">{title}</h4>
-        <p className="text-sm md:text-base text-gray-500 text-center">{description}</p>
-    </div>
-);
+
 
 // Updated CourseCard with responsive design
 const CourseCard = ({ code, title, term, description, highlights }) => (
@@ -391,13 +412,6 @@ const CourseCard = ({ code, title, term, description, highlights }) => (
     </div>
 );
 
-// Updated FeatureCard for responsive design
-const FeatureCard = ({ title, description }) => (
-    <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
-        <h3 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">{title}</h3>
-        <p className="text-sm md:text-base text-gray-600">{description}</p>
-    </div>
-);
 
 // Updated NewsCard with responsive design
 const NewsCard = ({ date, title, description }) => (
